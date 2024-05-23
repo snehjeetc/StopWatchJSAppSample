@@ -36,11 +36,10 @@ stopBtn.addEventListener("click", () => {
     if (timer) {
         clearInterval(timer);
         //enabling start button to start the timer again
+        timer = undefined; 
         startBtn.disabled = false;
         startBtn.classList.toggle("hover-eff");
     }
-
-
 });
 
 //reset button stops the timer if it is running 
@@ -48,9 +47,12 @@ stopBtn.addEventListener("click", () => {
 resetBtn.addEventListener("click", () => {
     if (timer) {
         clearInterval(timer);
-        //enabling start button 
-        startBtn.disabled = false;
-        startBtn.classList.toggle("hover-eff");
+        //enabling start button
+        timer = undefined;  
+        if (startBtn.disabled) {
+            startBtn.disabled = false;
+            startBtn.classList.toggle("hover-eff");
+        }
     }
     minuteElapsed = 0;
     secondElapsed = 0;
@@ -62,8 +64,4 @@ resetBtn.addEventListener("click", () => {
 function updateTimerDetails() {
     minuteElement.textContent = `${minuteElapsed}`.padStart(2, 0);
     secondsElement.textContent = `${secondElapsed}`.padStart(2, 0);
-}
-
-function toggleStartBtn() {
-    startBtn.disabled = isTimerStarted;
 }
